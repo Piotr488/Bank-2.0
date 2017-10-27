@@ -1,5 +1,6 @@
 package Components;
 
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -17,13 +18,10 @@ public class ClientComponent {
     TextField tf_dataUrodzeniaKlienta = new TextField();
     TextField tf_peselKlienta = new TextField();
 
-    HBox hBox_imieKlienta = new HBox();
-    HBox hBox_nazwiskoKlienta = new HBox();
-    HBox hBox_dataUrodzeniaKlienta = new HBox();
-    HBox hBox_peselKlienta = new HBox();
-
     VBox vBox_1 = new VBox();
     VBox vBox_2 = new VBox();
+    VBox vBox_3 = new VBox();
+    VBox vBox_4 = new VBox();
 
     HBox hBox = new HBox();
 
@@ -32,24 +30,31 @@ public class ClientComponent {
         initialize();
     }
 
-    public void addHorizontal(HBox hBox, Label lbl, TextField tf){
-        hBox.getChildren().addAll(lbl,tf);
+    public void addLabels(VBox vbox, Label lbl1, Label lbl2){
+        vbox.getChildren().addAll(lbl1,lbl2);
+    }
+    public void addTextFields(VBox vbox, TextField tf1, TextField tf2){
+        vbox.getChildren().addAll(tf1,tf2);
     }
 
-    public void addVertical(VBox vbox, HBox hBox1, HBox hBox2){
-        vbox.getChildren().addAll(hBox1,hBox2);
+    public void stylizeVBox(VBox vbox){
+        vbox.setAlignment(Pos.BOTTOM_LEFT);
+        vbox.setStyle("-fx-padding: 5px;");
     }
 
     public void initialize(){
-        addHorizontal(hBox_imieKlienta,lbl_imieKlienta,tf_imieKlienta);
-        addHorizontal(hBox_nazwiskoKlienta,lbl_nazwiskoKlienta,tf_nazwiskoKlienta);
-        addHorizontal(hBox_dataUrodzeniaKlienta,lbl_dataUrodzeniaKlienta,tf_dataUrodzeniaKlienta);
-        addHorizontal(hBox_peselKlienta,lbl_peselKlienta,tf_peselKlienta);
+        stylizeVBox(vBox_1);
+        stylizeVBox(vBox_2);
+        stylizeVBox(vBox_3);
+        stylizeVBox(vBox_4);
 
-        addVertical(vBox_1,hBox_imieKlienta,hBox_dataUrodzeniaKlienta);
-        addVertical(vBox_2,hBox_nazwiskoKlienta,hBox_peselKlienta);
+        addLabels(vBox_1,lbl_imieKlienta,lbl_dataUrodzeniaKlienta);
+        addTextFields(vBox_2,tf_imieKlienta,tf_dataUrodzeniaKlienta);
+        addLabels(vBox_3,lbl_nazwiskoKlienta,lbl_peselKlienta);
+        addTextFields(vBox_4,tf_nazwiskoKlienta,tf_peselKlienta);
 
-        hBox.getChildren().addAll(vBox_1,vBox_2);
+        hBox.getChildren().addAll(vBox_1,vBox_2,vBox_3,vBox_4);
+        hBox.setStyle("-fx-solid: 3px; -fx-border-color: black;");
     }
 
     public Node getNode(){
