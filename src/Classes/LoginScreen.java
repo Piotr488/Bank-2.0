@@ -5,7 +5,7 @@ import Components.LoginScreenComponent;
 
 public class LoginScreen {
     LoginScreenComponent loginScreenComponent = new LoginScreenComponent();
-    Controller
+    
 
     public void login(String username,String password){
         if (username.equals("admin") && password.equals("qwrr")){
