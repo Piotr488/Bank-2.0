@@ -30,10 +30,10 @@ public class ClientComponent {
         initialize();
     }
 
-    public void addLabels(VBox vbox, Label lbl1, Label lbl2){
+    private void addLabels(VBox vbox, Label lbl1, Label lbl2){
         vbox.getChildren().addAll(lbl1,lbl2);
     }
-    public void addTextFields(VBox vbox, TextField tf1, TextField tf2){
+    private void addTextFields(VBox vbox, TextField tf1, TextField tf2){
         vbox.getChildren().addAll(tf1,tf2);
     }
 

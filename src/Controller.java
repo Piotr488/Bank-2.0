@@ -1,9 +1,9 @@
-package Components;
+
 
 import Classes.Client;
 import Components.ClientComponent;
+import Components.LoginDialogComponent;
 import javafx.fxml.FXML;
-import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
@@ -30,22 +30,29 @@ public class Controller {
     @FXML
     Pane centerPane;
 
-    public VBox getTopBox() {
-        return topBox;
-    }
-
-    public void setTopBox(VBox topBox) {
-        this.topBox = topBox;
-    }
-
     public void initialize(){
         topBox.setAlignment(Pos.CENTER);
-        addLoginScreen();
+
     }
 
-    public void createClient(){
-        System.out.println("klient stworzony pomyslnie");
+    public void addLoginDialog() {
+        new LoginDialogComponent().showAndWait((username, password) -> {
+            //Kod który zostanie wykonany po naciśnięciu "Login"
+            return doLogin(username, password);
+        });
     }
+
+    private boolean doLogin(String username, String password) {
+        if (applicationService.login(username, password)) {
+            userLabel.setText("Zalogowany jako [" + username + "]");
+            loggedIn = true;
+            return true;
+        }
+        loggedIn = false;
+        userLabel.setText("(niezalogowany)");
+        return false;
+    }
+
 
     public void addClientComponent(){
         bottomBox.getChildren().add(new ClientComponent().getNode());
@@ -73,25 +80,5 @@ public class Controller {
 
         Client client = new Client();
         addClient.setOnAction(e -> addClientComponent());
-    }
-
-    public void login(String username,String password){
-        if (username.equals("admin") && password.equals("qwrr")){
-            System.out.println("logged in as admin");
-            lbl_loginInfo.setText("Login Succesful");
-            topBox.getChildren().clear();
-            addAdminMainMenu();
-
-        }
-        else if (username.equals("user") && password.equals("qwrr")){
-            System.out.println("logged in as user");
-            lbl_loginInfo.setText("Login Succesful");
-            topBox.getChildren().clear();
-            addUserMainMenu();
-        }
-        else {
-            System.out.println("wrong username and/or password");
-            lbl_loginInfo.setText("wrong username and/or password");
-        }
     }
 }

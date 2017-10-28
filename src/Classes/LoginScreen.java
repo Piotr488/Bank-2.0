@@ -5,25 +5,29 @@ import Components.LoginScreenComponent;
 
 public class LoginScreen {
     LoginScreenComponent loginScreenComponent = new LoginScreenComponent();
-    
 
-    public void login(String username,String password){
+
+
+    public boolean login(String username,String password){
         if (username.equals("admin") && password.equals("qwrr")){
             System.out.println("logged in as admin");
             loginScreenComponent.getLbl_loginInfo().setText("Login Succesful");
-            topBox.getChildren().clear();
-            addAdminMainMenu();
+
+            return true;
+
 
         }
         else if (username.equals("user") && password.equals("qwrr")){
             System.out.println("logged in as user");
             loginScreenComponent.getLbl_loginInfo().setText("Login Succesful");
-            topBox.getChildren().clear();
-            addUserMainMenu();
+            return true;
+
+
         }
         else {
             System.out.println("wrong username and/or password");
-            lbl_loginInfo.setText("wrong username and/or password");
+            loginScreenComponent.getLbl_loginInfo().setText("wrong username and/or password");
+            return false;
         }
     }
 }
