@@ -1,8 +1,10 @@
 
 
 import Classes.Client;
+import Classes.LoginScreen;
 import Components.ClientComponent;
 import Components.LoginDialogComponent;
+import Components.LoginScreenComponent;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
@@ -30,55 +32,30 @@ public class Controller {
     @FXML
     Pane centerPane;
 
+    boolean loggedIn = false;
+    private LoginScreen loginScreen = new LoginScreen();
+
     public void initialize(){
         topBox.setAlignment(Pos.CENTER);
+        addLoginScreenComponent();
 
     }
 
-    public void addLoginDialog() {
+    public void addLoginDialogComponent() {
         new LoginDialogComponent().showAndWait((username, password) -> {
-            //Kod który zostanie wykonany po naciśnięciu "Login"
-            return doLogin(username, password);
+            loginScreen.login(username,password);
+            return loginScreen.login(username, password);
         });
     }
-
-    private boolean doLogin(String username, String password) {
-        if (applicationService.login(username, password)) {
-            userLabel.setText("Zalogowany jako [" + username + "]");
-            loggedIn = true;
-            return true;
-        }
-        loggedIn = false;
-        userLabel.setText("(niezalogowany)");
-        return false;
+    public void addLoginScreenComponent(){
+        topBox.getChildren().add(new LoginScreenComponent().getNode());
     }
+
 
 
     public void addClientComponent(){
         bottomBox.getChildren().add(new ClientComponent().getNode());
     }
 
-    public void addAdminMainMenu(){
-        Button addClient = new Button("Dodaj Klienta");
-        Button editClient = new Button("Edytuj Klienta");
-        Button deleteClient = new Button("Usun Klienta");
-        HBox przyciski = new HBox();
-        przyciski.getChildren().addAll(new Label("Admin"),addClient,editClient,deleteClient);
-        topBox.getChildren().add(przyciski);
 
-        Client client = new Client();
-        addClient.setOnAction(e -> addClientComponent());
-    }
-
-    public void addUserMainMenu(){
-        Button addClient = new Button("Dodaj Klienta");
-        Button editClient = new Button("Edytuj Klienta");
-        Button deleteClient = new Button("Usun Klienta");
-        HBox przyciski = new HBox();
-        przyciski.getChildren().addAll(new Label("User"), addClient,editClient,deleteClient);
-        topBox.getChildren().add(przyciski);
-
-        Client client = new Client();
-        addClient.setOnAction(e -> addClientComponent());
-    }
 }

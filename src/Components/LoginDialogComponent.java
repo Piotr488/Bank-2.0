@@ -14,8 +14,8 @@ public class LoginDialogComponent {
     public void showAndWait(BiPredicate<String,String> loginFunction) {
         // Create the custom dialog.
         Dialog<Pair<String, String>> dialog = new Dialog<>();
-        dialog.setTitle("Login Dialog");
-        dialog.setHeaderText("Look, a Custom Login Dialog");
+        dialog.setTitle("User login Panel");
+        dialog.setHeaderText("Login Panel to Bank 2.0");
 
         // Set the icon (must be included in the project).
         //        dialog.setGraphic(new ImageView(this.getClass().getResource("login.png").toString()));
@@ -34,9 +34,7 @@ public class LoginDialogComponent {
         username.setPromptText("Username");
         PasswordField password = new PasswordField();
         password.setPromptText("Password");
-        Label loginInfo = new Label();
 
-        grid.add(loginInfo,0,0);
         grid.add(new Label("Username:"), 0, 1);
         grid.add(username, 1, 1);
         grid.add(new Label("Password:"), 0, 2);
